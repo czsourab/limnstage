@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134950522-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-134950522-1');
+</script>
+    <meta name="msvalidate.01" content="9769213937FD754EB587EFE7AD7AFD31" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="any type of news, different limn, discussion, different question and answer, social post">
+    <meta name="author" content="">
+    <title>LimnStage</title>
+    {% load static %}
+
+    <!--load filter custom-->
+    {% load replace %}
+    <!-- Bootstrap core CSS -->
+     <link rel="shortcut icon" type="image/png" href="https://s3.us-east-2.amazonaws.com/media.limnstage.com/icons/limnstage.png">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/blog-post.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- <script src="models/script.js"></script> -->
+ <!-- style of affix -->
+      <body > 
+<style>
+ .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  p {
+    margin:0;
+  }
+  pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  }
+  </style>
+  </head>
+    <!-- navigation-->
+{% include 'navbar.html' %}    
+ <!-- nav bar left -->
+    <div class="container"> 
+        
+<!--ads-->
+<br>
+
+<!-- all articles-->
+
+{% for r in recent %}
+ <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page"><a href="{% url 'thelimn' id=r.id title=r.title|replace %}">{{r.title}}</a></li>
+          </ol>
+        </nav>
+{% endfor %}
+
+
+
+
+
+
+
+              
+          <!-- Side Widget -->
+        </div>
+      </div>
+      <!-- /.row & -->
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+{% include 'footer.html' %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>  
+    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script> 
+   <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
+  </body>
+</html>

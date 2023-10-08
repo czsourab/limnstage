@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134950522-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-134950522-1');
+</script>
+    <meta name="msvalidate.01" content="9769213937FD754EB587EFE7AD7AFD31" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="any type of news, different limn, discussion, different question and answer, social post">
+    <meta name="author" content="">
+    <title>LimnStage</title>
+    {% load static %}
+    <!-- Bootstrap core CSS -->
+     <link rel="shortcut icon" type="image/png" href="https://s3.us-east-2.amazonaws.com/media.limnstage.com/icons/limnstage.png">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/blog-post.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- <script src="models/script.js"></script> -->
+ <!-- style of affix -->
+      <body > 
+<style>
+ .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  p {
+    margin:0;
+  }
+  pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  }
+  </style>
+  </head>
+    <!-- navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="https://www.limnstage.com">LimnStage</a>
+        <li class="nav-item active">
+              {% if request.COOKIES.username %}
+                  <a  href="limning">Limn Some</a> &nbsp;                
+                     {% else %}
+                  <a  href="limning"><span class="badge badge-primary">limn/post something<span></a> &nbsp;
+                  
+                {% endif %}
+
+            </li>
+           
+      </div>
+    </nav>      
+ <!-- nav bar left -->
+    <div class="container"> 
+        
+
+
+
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScQwLVoUvKq50-_Q9TMeQvB5mpYAIGvwJc96acQma5pcVFf7g/viewform?embedded=true" width= 100% height="862" align="middle" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+
+
+
+              
+          <!-- Side Widget -->
+        
+      </div>
+      <!-- /.row & -->
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+{% include 'footer.html' %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>  
+    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script> 
+   <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
+  </body>
+</html>

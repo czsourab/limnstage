@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="any type of news, different post, discussion, different question and answer, social post">
+    <meta name="author" content="">
+    <title>LimnStage</title>
+    {% load static %}
+    <!-- Bootstrap core CSS -->
+        <link rel="shortcut icon" type="image/png" href="{% static 'icons/limnstage.PNG' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/blog-post.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/amsify.suggestags.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tags-input/tags.css' %}">
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<!-- Amsify Plugin -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<style>
+ .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  </style>
+  </head>
+  <body > 
+  {% if exsist_limn %}
+  <script>alert('title or description already exsist');</script>
+  {% endif %}
+    <!-- navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">LimnStage</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="text-white">profile</span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+        {% for log in loggeduser %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <img class='rounded-circle' src="{{log.profilepic.url}}" width='40' height='40'>
+            </li>
+            <li class="nav-item active">
+             <a class="nav" href="limning"></a> &nbsp;
+            </li>
+          </ul>
+        {% endfor %}
+        </div>
+      </div>
+    </nav>          
+ <!-- nav bar left -->
+    <div class="container">   
+     <!-- Modal of sign up -->
+      <div class="row">     
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+   <div class="card my-4">
+      <h5 class="card-header">Write a post/story or any question/query :</h5>   
+        <div class="card-body">  
+            <!--          <script type="text/javascript">
+            function check_form() {
+            var editor_val = CKEDITOR.instances.editor1.document.getBody().getChild(0).getText(0) ;
+                
+            if (editor_val.length < 6) {
+                alert('Write Little Description of Your Limn') ;
+                return false ;
+            }
+            }
+            </script> -->
+
+          {% block limning %}     
+            <form action="" method="post" onsubmit="return check_form()" enctype="multipart/form-data">
+            {% csrf_token %}
+             <textarea type="text" rows="1" id= "myinput2" maxlength = "80" name="title" class="form-control" placeholder="question/post/blog title type here" required="required" value=""></textarea>
+              <p id="warning"></p>
+
+              <script>
+              $( "#myinput2" ).on('input', function() {
+                  if ($(this).val().length>=80) {
+                      document.getElementById("warning").innerHTML ='<div class="alert alert-warning alert-dismissible fade show" role="alert">'
+                        + '<strong>title not more then 80 charecter</strong> use description area for describe it.'
+                        +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                         + '<span aria-hidden="true">&times;</span>'
+                        +'</button>'
+                      +'</div>'; 
+                  }
+                  else{
+                    document.getElementById("warning").innerHTML = '';
+                  }
+              });
+              
+              </script>
+              <div class="form-group">          
+                  <select required="required" name="limn_type" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                    <option value=""><span class="muted-text">type of post Query or article/Story</span></option>
+                    <option value="Query">Query</option>
+                    <option value="Story/Article">story/Article</option>
+                  </select>
+                  {% if request.session.name != NUll %}
+                  {{request.session.name}}
+                  {% endif %}
+                  
+              </div>
+                <input class="form-control" name="subjects" type="text" placeholder="tags eg:- science, nature, planet etc. releted to your limn" required="required"/>
+              
+
+              <!-- if user not logged in-->
+                {% if loggeduser %}
+                     {% else %}
+                      <div class="form-group">
+                        <input type="text" name="fullname" class="form-control" placeholder="Your name type here" required="required"> 
+                        </div> 
+                {% endif %} 
+
+                  <div class="form-group">
+                      <script src="{% static 'ckeditor/ckeditor.js' %}"></script>             
+                       <div class="card my-4">
+                          <h5 class="card-header">description of post/question/Story</h5>
+                          <textarea name="editor1" rows="8"> </textarea>
+                       </div>
+                   </div>
+                   <script src='https://www.google.com/recaptcha/api.js'></script>
+                      <div class="g-recaptcha" data-sitekey="6Le00nwUAAAAAHwy92QYBXUJGNHcad2eAybqOj_M"></div>
+               
+
+               {% if no_cha %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>check the captcha</strong> captcha is required.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div> 
+               {% endif %} 
+
+               <button type="submit" class="btn btn-primary"> limn it </button>        
+            </form>
+             {% endblock  %}
+        </div>
+      </div>
+        </div>
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+          <div class="widget sticky z-depth-1">
+            <div class="card-body">
+              <div class="row">
+              <h5 class="well">Related</h5>
+                {% comment %} <div class="col-lg-6"> {% endcomment %}
+                  <ul class="list-unstyled mb-0">                  
+                      {% comment %} <p class="small"><a href="#">Story/Article limns Story/Article limns
+                      Story/Article limns Story/Article limns</a> </p>                        {% endcomment %}
+                  </ul>
+                {% comment %} </div> {% endcomment %}
+              </div>
+            </div>
+          {% comment %} </div> {% endcomment %}
+          <!-- Side Widget -->
+        </div>
+      </div>
+      <!-- /.row & -->
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+{% include 'footer.html' %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'tags-input/tags.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>  
+    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script> 
+   <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
+   <script type="text/javascript" src="{% static 'vendor/jquery/jquery.amsify.suggestags.js' %}"></script>
+    
+    <script>
+   
+      CKEDITOR.replace( 'editor1' );
+      CKEDITOR.on('dialogDefinition', function(e){
+        dialogName=e.data.name;
+        dialogDefinition=e.data.definition;
+        console.log(dialogDefinition);
+        if(dialogName =='image'){
+         dialogDefinition.removeContents('Link');
+         dialogDefinition.removeContents('advanced');
+         var tabContent = dialogDefinition.getContents('info');
+         tabContent.remove('txtHSpace');
+         tabContent.remove('txtVSpace');
+         tabContent.remove('txtBorder');
+         tabContent.remove('txtWidth');
+         tabContent.remove('txtHeight');
+         tabContent.remove( 'cmbAlign' );
+
+           tabContent.remove('txtBorder');         
+         // tabContent.remove( 'txtAlt');
+         CKEDITOR.dialog.validate.notEmpty( 'Alt text is missing' );
+         tabContent.remove( 'basic');
+         tabContent.remove( 'htmlpreview');
+        }
+        if(dialogName =='link'){
+         dialogDefinition.removeContents('advanced');
+        }
+      })
+editor.on( 'dialogHide', function( evt ) {
+  var widget = evt.data.widget;
+
+  if ( widget && widget.name === 'image' && widget.element ) {
+    widget.element.addClass( 'img-fluid' );
+  }
+
+});
+
+    </script>   
+    <script type="text/javascript">
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    var element = document.getElementById('text');
+    if (isMobile) {
+        element.innerHTML = " ";
+    } else {
+    $(function(){
+
+      $("#header").sticky({
+        zIndex:3,
+        stopper: 300
+      });
+
+      $(".sticky").sticky({
+        topSpacing: 53,
+        zIndex:2,
+        stopper: "#footer"
+      });
+
+    });
+    }
+
+  </script>
+  </body>
+</html>

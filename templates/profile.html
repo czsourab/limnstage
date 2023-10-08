@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="any type of news, different post, discussion, different question and answer, social post">
+    <meta name="author" content="">
+
+    
+
+    {% load static %}
+    <!--load custom filter-->
+    {% load replace %}
+    <link rel="shortcut icon" type="image/png" href="https://s3.us-east-2.amazonaws.com/media.limnstage.com/icons/limnstage.png">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/blog-post.css' %}" rel="stylesheet">
+    <!-- <script src="models/script.js"></script> -->
+
+ <!-- style of affix -->
+
+<style>
+ .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  p {
+    margin:0;
+  }
+  pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  }
+  </style>
+
+
+  </head>
+    <body > 
+    <!-- if limn exists-->
+    {% if exsist_limn %}
+  <script>alert('title or description already exsist');</script>
+  {% endif %}
+    <!-- navigation-->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="https://www.limnstage.com">LimnStage</a>
+         
+        
+        <a class="" type="button" data-toggle="collapse" data-target="#navbarResponsive." aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <!-- <span class="navbar-toggler-icon"></span> -->
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive"> 
+          <ul class="navbar-nav ml-auto">
+              
+            </li>
+          </ul>
+
+
+        </div>
+      </div>
+    </nav>
+
+ <!-- nav bar left -->
+
+
+
+    <div class="container"> 
+      
+<!-- Modal of sign up -->
+
+
+      <div class="row">
+       
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+           <h2 class="my-4"><small> </small></h2>
+            
+
+          <!-- Blog Post -->
+          {% for d in details %}
+          <div class="card mb-4">
+            <div class="card-body float-center">
+            	<h1 class="float-center"><img class="rounded-circle float-centre" src="{{d.profilepic.url}}" alt="{{d.fullname}}" style="width:150px !important;height:150px !important;"></h1> 
+              <h4 class="card-title float-center">fullname ->{{d.fullname}}</h4>
+              <h4 class="card-title">username->{{d.username}}</h4>
+              <p class="card-text">total limns {{total_limns}}</p>
+
+        <!--ark to user-->
+          <a ><span class="badge badge-danger" data-toggle="modal" data-target=".bd-example-modal-lg" >ask to {{d.username}} ?</span></a>
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLabel">ask to {{d.username}}</h5>
+                    </div>
+                  {% block limning %}     
+                  <form action="" method="post" onsubmit="return check_form()" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <input type="text" name="title" class="form-control" placeholder="question/post/blog title type here" required="required" value="">
+                    <div class="form-group">          
+                  <select required="required" name="limn_type" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                    <option value=""><span class="muted-text">type of post Query or article/Story</span></option>
+                    <option value="Query">Query</option>
+                    <option value="Story/Article">story/Article</option>
+                  </select>
+                  {% if request.session.name != NUll %}
+                  {{request.session.name}}
+                  {% endif %}
+                  
+                    </div>
+                      <input class="form-control" name="subjects" type="text" placeholder="tags eg:- science, nature, planet etc. releted to your limn" required="required"/>
+                    <!-- if user not logged in-->
+                      {% if request.COOKIES.username != NULL %}
+                          {% else %}
+                            <div class="form-group">
+                              <input type="text" name="fullname" class="form-control" placeholder="Your name type here" required="required"> 
+                              </div> 
+                    {% endif %} 
+
+                        <div class="form-group">
+                            <script src="{% static 'ckeditor/ckeditor.js' %}"></script>             
+                            <div class="card my-4">
+                                <h5 class="card-header">description of post/question/Story</h5>
+                                <textarea name="editor1" rows="8"> </textarea>
+                            </div>
+                        </div>
+
+                    {% if request.COOKIES.username != NULL %}
+                         {% else %}
+                        <script src='https://www.google.com/recaptcha/api.js'></script>
+                        <div class="g-recaptcha" data-sitekey="6Le00nwUAAAAAHwy92QYBXUJGNHcad2eAybqOj_M"></div>
+                   {% endif %} 
+
+                   {% if no_cha %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>check the captcha</strong> captcha is required.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div> 
+               {% endif %} 
+                   
+                   
+                    <button type="submit" class="btn btn-primary"> limn it </button>        
+                  </form>
+                  {% endblock  %}
+                  </div>
+                </div>
+              </div>
+            </div>
+   <!--ask to user end-->
+
+
+
+              {% comment %} <a href=""<span class="badge badge-success">total solution by {{d.username}}<span class="badge badge-secondary">4</span></span></a> {% endcomment %}
+              <!--for the user-->
+              <a href="{% url 'profile' name=d.username  %}"><span class="badge badge-primary">people asked to {{d.username}}</span></a>
+              
+              
+            </div>          
+          </div>
+
+          {% if no_cha %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>check the captcha</strong> captcha is required.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div> 
+               {% endif %} 
+
+          <div class="card mb-4">
+          <div class="card-body"> 
+              <h2 class="card-title">All the limns of {{d.fullname}}</h2>            
+            </div> 
+            </div> {% endfor %}
+
+          {% for l in limn %}
+          <div class="card mb-4">
+          <style>img {max-width: 100%;height: auto;}</style>
+             <div class="card-body"> 
+             
+             {% ifequal l.username request.COOKIES.username %}
+                <a href="{% url 'update' id=l.id title=l.title|slugify %}" class="float-right text-danger">Edit</a>
+             {% endifequal %}
+             <a class="small" href="{% url 'thelimn' id=l.id title=l.title|slugify %}" <h5 class="card-title">{{l.title}}</h5></a>
+              <p class="small">{{l.body|safe}}</p>         
+            </div> 
+          </div> 
+          {% endfor %}
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+          <div class="sticky-top">
+          <!-- Search Widget -->
+          <br><br>
+          <!-- Categories Widget -->
+
+          <div class="card my-4 border-0">
+            <div class="card-body">
+               <h4>you may like</h4>
+                  {% for e in extra  %}        
+                      <p><a class="small" href="{% url 'thelimn' id=e.id title=e.title|slugify %}">{{e.title}}</a></p><br>
+                  {% endfor %}
+            </div>
+          </div>
+
+
+          <!-- Side Widget -->
+          
+          
+
+        </div>
+
+      </div>
+      <!-- /.row & -->
+      
+
+    </div>
+    <!-- /.container -->
+
+
+    <!-- Footer -->
+ {% include 'footer.html' %}
+    <!-- Bootstrap core JavaScript -->
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script> 
+  <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/popper.min.js"></script>
+    
+    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script>
+    
+   <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
+
+ <script>
+   
+      CKEDITOR.replace( 'editor1' );
+      CKEDITOR.on('dialogDefinition', function(e){
+        dialogName=e.data.name;
+        dialogDefinition=e.data.definition;
+        console.log(dialogDefinition);
+        if(dialogName =='image'){
+         dialogDefinition.removeContents('Link');
+         dialogDefinition.removeContents('advanced');
+         var tabContent = dialogDefinition.getContents('info');
+         tabContent.remove('txtHSpace');
+         tabContent.remove('txtVSpace');
+         tabContent.remove('txtBorder');
+         tabContent.remove('txtWidth');
+         tabContent.remove('txtHeight');
+         tabContent.remove( 'cmbAlign' );
+
+           tabContent.remove('txtBorder');         
+         // tabContent.remove( 'txtAlt');
+         CKEDITOR.dialog.validate.notEmpty( 'Alt text is missing' );
+         tabContent.remove( 'basic');
+         tabContent.remove( 'htmlpreview');
+        }
+        if(dialogName =='link'){
+         dialogDefinition.removeContents('advanced');
+        }
+      })
+editor.on( 'dialogHide', function( evt ) {
+  var widget = evt.data.widget;
+
+  if ( widget && widget.name === 'image' && widget.element ) {
+    widget.element.addClass( 'img-fluid' );
+  }
+
+});
+
+    </script>   
+
+
+
+  </body>
+
+
+</html>

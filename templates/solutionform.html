@@ -1,0 +1,25 @@
+<form action="" method="POST">
+{% csrf_token %}
+
+
+{% if request.COOKIES.username %}
+{% else %}
+<div class="form-group">
+<input type="text" name="fullname" class="form-control" placeholder="Your name type here" required="required"> 
+</div> 
+
+{% endif %}
+
+
+
+
+<h5>your solution</h5>
+
+<textarea name="editor1"> </textarea> <br>
+{% if request.COOKIES.username %}
+{% else %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="g-recaptcha" data-sitekey="6Le00nwUAAAAAHwy92QYBXUJGNHcad2eAybqOj_M"></div>
+{% endif %}
+<button type="submit " name="submit" class="btn btn-primary" value={{l.id}}>Submit</button>      
+</form> 

@@ -1,0 +1,9 @@
+[program:limnstage_web]
+Directory=/home/ubuntu/limnstage
+command=/home/ubuntu/joy/bin/gunicorn –workers 3 --bind unix:/home/ubuntu/limnstage/limnstage.sock limnstage.wsgi:application
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout_logfile=/var/log/gunicorn.out.log
+[group:guni]
+programs:gunicorn

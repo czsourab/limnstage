@@ -1,0 +1,60 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/project/limnstage
+ExecStart=/home/ubuntu/project/env/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          limnstage.wsgi:applicationmysql -u sourab123 -p limnstagedbcz123 < /home/ubuntu/limnstagedbcz123.sql;
+
+[Install]
+WantedBy=multi-user.target
+
+server {
+    listen 80;
+    server_name www.limnstage.com;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/project/limnstage;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/limnstage /etc/nginx/sites-enabled/
+
+
+sudo nano /etc/nginx/sites-available/limnstage
+
+sudo nano /etc/systemd/system/gunicorn.service
+sudo systemctl daemon-reload
+
+
+gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/project/limnstage/limnstage.sock limnstage.wsgi:application
+
+
+[program:limnstage_web]
+command=/home/ubuntu/joy/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/limnstage/limnstage.sock limnstage.wsgi:application
+directory=/home/ubuntu/limnstage
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/myproject.err.log
+stdout_logfile=/var/log/myproject.out.log
+
+
+
+CREATE USER 'sourab123'@'localhost' IDENTIFIED BY 'Czzombie#@1234';
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'sourab123'@'localhost' WITH GRANT OPTION;
+pip install mysqlclient

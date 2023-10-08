@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5701773677390823",
+          enable_page_level_ads: true
+     });
+</script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134950522-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-134950522-1');
+</script>
+
+  <script async='async' src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'/>
+  <script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: &quot;ca-pub-5701773677390823&quot;,
+          enable_page_level_ads: true
+     });
+    </script>
+    <meta name="msvalidate.01" content="9769213937FD754EB587EFE7AD7AFD31" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="any type of news, different limn, discussion, different question and answer, social post">
+    <meta name="author" content="">
+    <title>LimnStage</title>
+    {% load static %}
+    <!-- Bootstrap core CSS -->
+     <link rel="shortcut icon" type="image/png" href="https://s3.us-east-2.amazonaws.com/media.limnstage.com/icons/limnstage.png">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/blog-post.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- <script src="models/script.js"></script> -->
+ <!-- style of affix -->
+      <body > 
+<style>
+ .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  p {
+    margin:0;
+  }
+  pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  }
+  </style>
+  </head>
+    <!-- navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="https://www.limnstage.com">LimnStage</a>
+        <li class="nav-item active">
+              {% if request.COOKIES.username %}
+                  <a  href="limning">Limn Some</a> &nbsp;                
+                     {% else %}
+                  <a  href="limning"><span class="badge badge-primary">limn/post something<span></a> &nbsp;
+                  
+                {% endif %}
+
+            </li>
+           
+      </div>
+    </nav>      
+ <!-- nav bar left -->
+    <div class="container">
+     <!-- Modal of sign up -->
+      <div class="row">     
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- test2 -->
+      <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-5701773677390823"
+          data-ad-slot="7911865958"
+          data-ad-format="link"
+          data-full-width-responsive="true"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+           <h2 class="my-4"><small> </small></h2>       
+          <!-- Blog Post -->
+<style>img {max-width: 100%;height: auto;}</style>      
+{% block allimns %}
+{{ limn_post|safe }}
+{% endblock allimns %} 
+  <!--in feed -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-g8-2d-2p-9n+15z"
+     data-ad-client="ca-pub-5701773677390823"
+     data-ad-slot="1884597358"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div id="message"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+var i = 0;
+window.onscroll = function(ev) {
+    if (i <= 3){ 
+           if ((window.innerHeight + window.scrollY +300) >= document.body.offsetHeight) {
+          i=i+1
+      
+                    $.ajax(
+                  {
+                    type:"GET",
+                    url: "load/",
+                    success: function( data ) 
+                    {
+                  $( '#message' ).append(data);
+                    }
+                });
+         }
+
+    }
+}   
+</script>             
+        </div>
+        <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+          <div class="sticky-top">
+          <!-- Categories Widget -->
+              <br><br>
+              <div class="card my-4">
+                <h6 class="card-header">Limn tab</h6>
+                <div class="card-body">
+                  Any limn or suggestion or trending topic come here
+                </div>
+              </div>
+
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- test1 -->
+              <ins class="adsbygoogle"
+                  style="display:block"
+                  data-ad-client="ca-pub-5701773677390823"
+                  data-ad-slot="3421246167"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+
+              
+          <!-- Side Widget -->
+        </div>
+      </div>
+      <!-- /.row & -->
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+{% include 'footer.html' %}
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>  
+    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script> 
+   <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
+  </body>
+</html>

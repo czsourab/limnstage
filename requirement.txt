@@ -1,0 +1,195 @@
+sudo apt-get install python-dev python3-dev
+sudo apt-get install libmysqlclient-dev
+pip install pymysql
+pip install mysqlclient
+sudo mysql_secure_installation
+pip install django-storages
+pip install requests
+pip install passlib
+pip install boto3
+
+
+
+
+
+mysql password
+Czzombie@1234
+user root
+
+
+activating virtual env source myproject/limnstage_env/bin/activate
+
+
+google recaptha site key=6LewJLAUAAAAANBcrqTYC0vbk4h8ipif9XXC0qr9
+google recaptha secret key=6LewJLAUAAAAAJMr0Vm3wlLRQwydRj8sdiqeZyxI
+
+
+mysql -u root -p
+You will be prompted for the administrative password you selected during installation. Afterwards, you will be given a prompt.
+
+First, we will create a database for our Django project. Each project should have its own isolated database for security reasons. We will call our database myproject in this guide, but it's always better to select something more descriptive. We'll set the default type for the database to UTF-8, which is what Django expects:
+
+CREATE DATABASE myproject CHARACTER SET UTF8;
+Remember to end all commands at an SQL prompt with a semicolon.
+
+Next, we will create a database user which we will use to connect to and interact with the database. Set the password to something strong and secure:
+
+CREATE USER myprojectuser@localhost IDENTIFIED BY 'password';
+Now, all we need to do is give our database user access rights to the database we created:
+
+sudo apt-get remove nginx nginx-common # Removes all but config files.
+
+sudo apt-get purge nginx nginx-common # Removes everything.
+
+sudo apt-get autoremove
+GRANT ALL PRIVILEGES ON myproject.* TO myprojectuser@localhost;
+Flush the changes so that they will be available during the current session:
+
+FLUSH PRIVILEGES;
+
+
+#date base connection
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'limnstagedbcz123',
+        'USER': 'sourabcz123',
+        'PASSWORD': 'Czzombie@1234',
+        'HOST': 'localhost',
+        'PORT': '',    # Server Port
+        }
+}
+
+
+[Unit]
+Description=gunicorn service
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/webproj/webapp
+ExecStart=/home/shellvoide/webproj/webenv/bin/gunicorn --access-logfile - --workers 3 --chdir /home/shellvoide/webproj/webapp/ --bind unix:/home/shellvoide/webproj/webapp/webapp.sock webapp.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+Exit the SQL prompt to get back to your regular shell session:
+
+exit
+
+
+
+
+server {
+    listen 80;
+    server_name 13.58.120.24;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/myproject/limnstage;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/myproject/limnstage/myproject.sock;
+    }
+}
+
+
+
+#restart ngnix and reloadd
+sudo nginx -t && sudo service nginx reload
+
+
+ubuntu@ip-172-31-31-237:~/myproject/limnstage$ sudo systemctl restart gunicorn
+ubuntu@ip-172-31-31-237:~/myproject/limnstage$ sudo systemctl restart nginx
+
+[Unit]
+Description=gunicorn deamon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/myproject/limnstage
+ExecStart=/home/ubuntu/myproject/limnstage_env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/myproject/limnstage/myproject.sock limnstage.wsgi:application
+
+
+[Install]
+WantedBy=multi-user.target
+
+
+server {
+    listen 80;
+    server_name 13.58.120.24;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/myproject/limnstage;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/myproject/limnstage/myproject.sock;
+    }
+}
+
+
+#renew ssl
+certbot renew --pre-hook "service nginx stop" --post-hook "service nginx start"
+
+#get ssl or renew
+sudo certbot --nginx -d example.com -d www.example.com
+
+
+server {
+    server_name limnstage.com ;
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    location = /favicon.ico { access_log off; log_not_found off; }
+    ssl_certificate /etc/letsencrypt/live/limnstage.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/limnstage.com/privkey.pem; # managed by Certbot
+
+
+
+    location /static/ {
+        root /home/ubuntu/myproject/limnstage;
+    }
+   location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/myproject/limnstage/myproject.sock;
+    }
+
+
+
+}
+server {
+    listen 80;
+    listen [::]:80;
+    server_name www.limnstage.com *.website.com;
+    return 301 https://$host$request_uri;
+}
+
+
+<script async='async' src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'/>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: &quot;ca-pub-5701773677390823&quot;,
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+[program:gunicorn]
+directory=/home/ubuntu/limnstage
+command=/home/ubuntu/env/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/limnstage/limnstage.sock limnstage.wsgi:appli>
+autostart=start
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout_logfile=/var/log/gunicorn/gunicorn.err.log
+
+[group:guni]
+programs:gunicorn

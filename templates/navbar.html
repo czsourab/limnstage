@@ -1,0 +1,15 @@
+﻿    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="https://www.limnstage.com">LimnStage</a>
+        <li class="nav-item active">
+              {% if request.COOKIES.username %}
+                  <a  href="{% url 'limning' %}">Limn Some</a> &nbsp;                
+                     {% else %}
+                  <a  href="{% url 'limning' %}"><span class="badge badge-primary">limn/post something<span></a> &nbsp;
+                  
+                {% endif %}
+
+            </li>
+           
+      </div>
+    </nav>  

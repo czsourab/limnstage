@@ -1,0 +1,19 @@
+server{
+listen 443 ssl;
+listen [::]:443 ssl;
+server_name www.limnstage.com;
+ssl_certificate /etc/letsencrypt/live/www.limnstage.com/fullchain.pem; # managed by Certbot
+ssl_certificate_key /etc/letsencrypt/live/www.limnstage.com/privkey.pem; # managed by Certbot
+
+
+
+location /static/ {
+root /home/ubuntu/limnstage;
+}
+
+location / {
+include proxy_params;
+proxy_pass http://unix:/home/ubuntu/limnstage/limnstage.sock;
+}
+
+}

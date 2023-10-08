@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5701773677390823",
+          enable_page_level_ads: true
+     });
+</script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+    <link rel="canonical" href="https://amp.dev/documentation/guides-and-tutorials/start/create/basic_markup/">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="author" content="">
+    {% for l in limns %}
+    <title>{{l.title}}</title>
+    {% endfor %}
+    {% load static %}
+    <!--load custom filter-->
+    {% load replace %}
+    <link rel="shortcut icon" type="image/png" href="https://s3.us-east-2.amazonaws.com/media.limnstage.com/icons/limnstage.png">
+
+    <!-- Bootstrap core CSS -->
+    {% comment %} <link href="{% static 'ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}" rel="stylesheet"> {% endcomment %}
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    {% comment %} <link href="{% static 'css/blog-post.css' %}" rel="stylesheet"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+    <!-- <script src="models/script.js"></script> -->
+
+ <!-- style of affix -->
+          {% if ansexists %}
+          <script>alert('your limn already exists');</script>
+          {% endif %}
+<style amp-custom>
+hr { margin-top: 5px; margin-bottom: 1px }
+ .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  p { 
+  margin: 0; 
+  }
+  pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  }
+
+  </style>
+  <style amp-custom>img {max-width: 100%;height: auto;}</style>
+  </head>
+    
+      <body > 
+    <!-- navigation-->
+{% include 'navbar.html' %}   
+      
+ <!-- nav bar left -->
+    <div class="container">  
+     <!-- Modal of sign up -->
+      <div class="row">  
+ 
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          
+          <br><br>
+          
+            {% for l in limns %}
+           <h2 class="my-4"><small></small></h2>  
+             <div class="media mb-4 ">
+               <amp-img class="d-flex mr-3 rounded-circle" src="{{pic}}"  style="width:40px !important;height:40px !important;"><br><br>
+                <h6> by 
+             <!-- #checkinh anonymous-->
+                {% if l.username == Anonymous %}  
+                  {{l.fullname}} ({{l.username}})<br>
+                    {% else %}
+                    <a href= "../../{{l.username}}">{{l.fullname}}({{l.username}})</a><br>
+                {% endif %}
+
+                {% comment %} on   {% endcomment %}this is a {{l.limntype}} limn  <br>
+                <span class="text-muted"><!-- work where he/she live -->
+               </span> </h6>
+             </div> 
+               <a  class="text-dark" href= "{% url 'thelimn' id=l.id title=l.title|slugify %}"> <h1>{{l.title}}</h1></a>
+               {% for tag in tagslist %}
+               <span class="badge badge-primary">{{tag}}</span>
+               {% endfor %}
+                <a class="float-right" href="https://wa.me/?text=https://www.limnstage.com{{ request.get_full_path }}" target="_blank" ><i class="fa fa-whatsapp float-xl-right" style="font-size:30px;color:green"></i></a>
+                <a class="float-right" href="https://www.facebook.com/sharer.php?u=https://www.limnstage.com{{ request.get_full_path }}" target="_blank"><i class="fa fa-facebook-square float-xl-right" style="font-size:30px;color:#3C5A99;"></i></a>
+
+                <h3 class="text-muted float-right">share: </h3>
+               
+                <!--related post 5 to 10-->
+
+
+               <div class="card-text" >{{l.body|safe}}</div> 
+            <!--related post 5 to 10-->
+               
+               {% endfor %}
+               {% for l in limns %}
+                        {% if l.limntype == Query%}    
+               <h5 class="text-success">SOLUTIONS</h5> 
+                      {% endif %}
+
+               {% endfor %}
+
+                {% comment %} for load answer {% endcomment %}
+
+                   {% for l in limns %}
+                        {% if l.limntype == Query%}     
+
+                  <a href= "{% url 'answering' id=l.id title=l.title|slugify %}"><span class="badge badge-primary">put you solution</span></a>
+
+                        {% endif %}
+                 {% endfor %}
+             <hr>
+                 <div class ="similarqustion"> {{theanswer|safe}}</div>
+                   <!--related post 10 to 15-->
+  
+          </div>
+
+        {% comment %} for answerig {% endcomment %}
+              
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <div class="card my-4 border-0">
+             <div class="sticky-top">
+            <div class="card-body">
+
+          
+
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page"><a href="{% url 'unsolved' %}">unsolved queries</a></li>
+          </ol>
+        </nav>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page"><a href="{% url 'recentarticle' %}">recent articles, stories</a></li>
+          </ol>
+        </nav>
+            <h5>Related</h5>
+              {% for r in related|slice:":15" %}
+                      <p class="small"><a href="{% url 'thelimn' id=r.id title=r.title|slugify %}">{{ r.title}}</a></p><br> 
+                     {% endfor %}
+            {% comment %} <h5>Queries that you can solve</h5>
+            <h5>articles/stories you may like</h5> {% endcomment %}
+            </div>
+           </div>
+          <!-- Side Widget -->
+        </div>
+      </div>
+      
+      <!-- /.row & -->
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap core JavaScript -->
+
+  </body>
+</html>

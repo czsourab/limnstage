@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="any type of news, different post, discussion, different question and answer, social post">
+    <meta name="author" content="">
+    <title>LimnStage</title>
+    {% load static %}
+    <!-- Bootstrap core CSS -->
+        <link rel="shortcut icon" type="image/png" href="{% static 'icons/limnstage.PNG' %}">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/blog-post.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/amsify.suggestags.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tags-input/tags.css' %}">
+<!-- Amsify Plugin -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<style>
+ .affix {
+      top: 20px;
+      z-index: 9999 !important;
+  }
+  </style>
+  </head>
+  <body > 
+  {% if exsist_limn %}
+  <script>alert('title or description already exsist');</script>
+  {% endif %}
+    <!-- navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">LimnStage</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="text-white">profile</span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+        {% for log in loggeduser %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <img class='rounded-circle' src="{{log.profilepic.url}}" width='40' height='40'>
+            </li>
+            <li class="nav-item active">
+             <a class="nav" href="limning"></a> &nbsp;
+            </li>
+          </ul>
+        {% endfor %}
+        </div>
+      </div>
+    </nav>          
+ <!-- nav bar left -->
+    <div class="container">   
+     <!-- Modal of sign up -->
+      <div class="row">     
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+   
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+  /**
+   * Sample JavaScript code for youtube.subscriptions.insert
+   * See instructions for running APIs Explorer code samples locally:
+   * https://developers.google.com/explorer-help/guides/code_samples#javascript
+   */
+
+  <script src="https://apis.google.com/js/api.js"></script>
+<script>
+  /**
+   * Sample JavaScript code for youtube.subscriptions.insert
+   * See instructions for running APIs Explorer code samples locally:
+   * https://developers.google.com/explorer-help/guides/code_samples#javascript
+   */
+
+  function authenticate() {
+    return gapi.auth2.getAuthInstance()
+        .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
+        .then(function() { console.log("Sign-in successful"); },
+              function(err) { console.error("Error signing in", err); });
+  }
+  function loadClient() {
+    gapi.client.setApiKey("AIzaSyCVFQXZn-HdiAyRaJO8F1qChsXabJ2EQAw");
+    return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+        .then(function() { console.log("GAPI client loaded for API"); },
+              function(err) { console.error("Error loading GAPI client for API", err); });
+  }
+  // Make sure the client is loaded and sign-in is complete before calling this method.
+  function execute() {
+    return gapi.client.youtube.subscriptions.insert({
+      "part": "Snippet",
+      "resource": {
+        "snippet": {
+          "resourceId": {
+            "channelId": "UCDGIA0NUhSsNP1cix2HBaLA",
+            "kind": "youtube#channel"
+          }
+        }
+      }
+    })
+        .then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+              function(err) { console.error("Execute error", err); });
+  }
+  gapi.load("client:auth2", function() {
+    gapi.auth2.init({client_id: "25298934595-tgusv25jnpgt2o25pgnrasfq3qdkaobk.apps.googleusercontent.com"});
+  });
+</script>
+<button onclick="authenticate().then(loadClient)">authorize and load</button>
+<button onclick="execute()">execute</button>
+
+
+
+
+
+      <h5 class="card-header">Subscribe and support the artist</h5>   
+        <div class="card-body">  
+            <!--          <script type="text/javascript">
+            function check_form() {
+            var editor_val = CKEDITOR.instances.editor1.document.getBody().getChild(0).getText(0) ;
+                
+            if (editor_val.length < 6) {
+                alert('Write Little Description of Your Limn') ;
+                return false ;
+            }
+            }
+            </script> -->
+          
+        </div>
+      </div>
+        </div>
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+          <div class="widget sticky z-depth-1">
+            <div class="card-body">
+              <div class="row">
+              <h5 class="well">Related</h5>
+                {% comment %} <div class="col-lg-6"> {% endcomment %}
+                  <ul class="list-unstyled mb-0">                  
+                      {% comment %} <p class="small"><a href="#">Story/Article limns Story/Article limns
+                      Story/Article limns Story/Article limns</a> </p>                        {% endcomment %}
+                  </ul>
+                {% comment %} </div> {% endcomment %}
+              </div>
+            </div>
+          {% comment %} </div> {% endcomment %}
+          <!-- Side Widget -->
+        </div>
+      </div>
+      <!-- /.row & -->
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+{% include 'footer.html' %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>  
+    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script> 
+   <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
+   <script type="text/javascript" src="{% static 'vendor/jquery/jquery.amsify.suggestags.js' %}"></script>
+
+    <script type="text/javascript">
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    var element = document.getElementById('text');
+    if (isMobile) {
+        element.innerHTML = " ";
+    } else {
+    $(function(){
+
+      $("#header").sticky({
+        zIndex:3,
+        stopper: 300
+      });
+
+      $(".sticky").sticky({
+        topSpacing: 53,
+        zIndex:2,
+        stopper: "#footer"
+      });
+
+    });
+    }
+
+  </script>
+  </body>
+</html>
